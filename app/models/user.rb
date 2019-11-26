@@ -5,8 +5,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, foreign_key: 'followed_id', class_name: 'Relationship', dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: %i(google)
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :omniauthable, omniauth_providers: %i(google)
   def self.create_unique_string
     SecureRandom.uuid
   end
