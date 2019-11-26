@@ -10,6 +10,10 @@
   </head>
 
   <body>
+  <%= link_to "新規登録", new_user_registration_path %>
     <%= yield %>
+    <% if current_user.present? %>
+      <li><%= link_to 'ユーザー一覧', users_path  %></li>
+    <% end %>
   </body>
 </html>
