@@ -11,5 +11,10 @@ Rails.application.routes.draw do
   resources :conversations do
     resources :messages
   end
-  resources :shares
+  resources :shares do
+    resources :comments
+  end
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

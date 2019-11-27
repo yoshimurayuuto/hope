@@ -1,0 +1,22 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <div class="share-text">
+    <p><strong>タイトル</strong>：<%= @share.title %></p>
+    <p><strong>共有したいこと</strong>：<%= @share.sharing %></p>
+  </div>
+
+  <p>コメント一覧</p>
+
+  <!-- このcomments_areaというHTMLのidを取得して、そのdivの部分だけを更新する -->
+  <div id="comments_area">
+    <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
+    <%= render partial: 'comments/index', locals: { comments: @comments, share: @share } %>
+  </div>
+
+  <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+  <%= render partial: 'comments/form', locals: { comment: @comment, share: @share } %>
+
+  <%= link_to '編集', edit_share_path(@share) %> |
+  <%= link_to '戻る', shares_path %>
+</div>

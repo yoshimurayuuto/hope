@@ -4,7 +4,7 @@ class SharesController < ApplicationController
     @shares = Share.all
   end
 
-  def new 
+  def new
     @share = Share.new
     # binding.pry
   end
@@ -12,16 +12,27 @@ class SharesController < ApplicationController
   def create
     @share = Share.new(share_params)
     if @share.save
+      NoticeMailer.sendmail_share(@share).deliver_later
+      # TitlesChangeJob.perform_later(@share.id)
       redirect_to shares_path
     else
       render :new
     end
   end
 
-  def show;end
+  def show
+    @comments = @share.comments
+  @comment = @share.comments.build
+  end
 
   def edit;end
-  def update;end
+  def update
+    if @share.update(share_params)
+      redirect_to shares_path
+    else
+      render :edit
+    end
+  end
 
   def destroy
     @share.destroy

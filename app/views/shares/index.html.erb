@@ -1,6 +1,7 @@
-<%= link_to "新規投稿", new_share_path %>
+
 <% @shares.each do |share| %>
   <p>名前：<%= share.name %></p>
   <p>タイトル：<%= share.title %></p>
   <p>共有したいこと：<%= share.sharing %></p>
+  <%= link_to "詳細", share_path(share.id) %>
 <% end %>
