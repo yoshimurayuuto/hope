@@ -10,23 +10,21 @@
   </head>
 
   <body>
+    おはよう!aaaaaaaaa
   <li><%= link_to 'ユーザー一覧', users_path  %></li>
   <% if current_user.present? %>
     <%= link_to "Profile", user_path(current_user.id) %>
    <% end %>
   <%= link_to "新規登録", new_user_registration_path %>
   <%= link_to "新規投稿", new_share_path %>
-  
+
   <% if notice %>
     <p class="alert alert-notice"><%= notice %></p>
   <% end %>
   <% if alert %>
     <p class="alert alert-error"><%= alert %></p>
   <% end %>
-  
+
     <%= yield %>
-    <% if current_user.present? %>
-      <li><%= link_to 'ユーザー一覧', users_path  %></li>
-    <% end %>
   </body>
 </html>

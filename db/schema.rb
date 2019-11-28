@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_064021) do
+ActiveRecord::Schema.define(version: 2019_11_28_095015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievements", force: :cascade do |t|
+    t.string "complete"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.bigint "share_id"
@@ -48,6 +54,15 @@ ActiveRecord::Schema.define(version: 2019_11_27_064021) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "labellings", force: :cascade do |t|
+    t.bigint "share_id"
+    t.bigint "achievement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id"], name: "index_labellings_on_achievement_id"
+    t.index ["share_id"], name: "index_labellings_on_share_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "body"
     t.bigint "conversation_id"
@@ -70,9 +85,7 @@ ActiveRecord::Schema.define(version: 2019_11_27_064021) do
   end
 
   create_table "shares", force: :cascade do |t|
-    t.string "name"
-    t.string "title"
-    t.text "sharing"
+    t.string "action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -100,6 +113,7 @@ ActiveRecord::Schema.define(version: 2019_11_27_064021) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.boolean "admin", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -108,6 +122,8 @@ ActiveRecord::Schema.define(version: 2019_11_27_064021) do
   end
 
   add_foreign_key "comments", "shares"
+  add_foreign_key "labellings", "achievements"
+  add_foreign_key "labellings", "shares"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
 end

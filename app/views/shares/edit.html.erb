@@ -1,15 +1,7 @@
-%= form_with(model: @share, local:true) do |f| %>
+<%= form_with(model: @share, local:true) do |f| %>
   <div>
-    <%= f.label :名前 %>
-    <%= f.text_field :name%>
-  </div>
-  <div>
-    <%= f.label :タイトル %>
-    <%= f.text_field :title%>
-  </div>
-  <div>
-    <%= f.label :共有したいこと %>
-    <%= f.text_field :sharing%>
+    <%= f.label :やるべきこと %>
+    <%= f.text_field :action %>
   </div>
   <%= f.submit "投稿" %>
 <% end %>

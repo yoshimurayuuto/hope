@@ -1,7 +1,7 @@
 
 <% @shares.each do |share| %>
-  <p>名前：<%= share.name %></p>
-  <p>タイトル：<%= share.title %></p>
-  <p>共有したいこと：<%= share.sharing %></p>
+  <p>やるべきこと:<%= share.action %></p>
+  <p>達成したかどうか?:<%= share.achivement %></p>
   <%= link_to "詳細", share_path(share.id) %>
+  <%= link_to "編集", edit_share_path(share.id) %>
 <% end %>

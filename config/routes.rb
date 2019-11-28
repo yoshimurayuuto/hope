@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # この記述を変更
   root :to => 'oauth_test#index'
   devise_for :users, controllers: {
