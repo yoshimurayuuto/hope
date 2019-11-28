@@ -1,5 +1,6 @@
 class ConfirmationsController < Devise::ConfirmationsController
   def show
+    binding.pry
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
     yield resource if block_given?
 
